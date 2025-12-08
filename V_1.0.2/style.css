@@ -1,0 +1,952 @@
+/* ============================================
+   ESTILOS GERAIS - DESIGN LIMPO E MODERNO
+============================================ */
+:root {
+  --primary: #5d93ff;
+  --primary-dark: #4a7dff;
+  --success: #34c9a6;
+  --warning: #ffb74d;
+  --danger: #ff6b6b;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --border-radius: 10px;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, sans-serif;
+  padding: 30px;
+  background: var(--gray-50);
+  min-height: 100vh;
+  color: var(--gray-800);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--gray-800);
+  font-size: 2.25rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* ============================================
+   CONTAGEM PRINCIPAL 2026 - DESIGN SIMPLES
+============================================ */
+#totals {
+  background: white;
+  padding: 28px;
+  border-radius: var(--border-radius);
+  margin-bottom: 40px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-200);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#totals h2 {
+  margin: 0 0 20px 0;
+  font-size: 0.95rem;
+  color: var(--gray-600);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#totals h2:before {
+  content: "";
+  width: 5px;
+  height: 18px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+.total-display {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 30px;
+  padding: 24px;
+  background: var(--gray-50);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--gray-200);
+  margin-bottom: 24px;
+}
+
+.total-main {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--gray-800);
+  line-height: 1;
+}
+
+.total-label {
+  font-size: 0.95rem;
+  color: var(--gray-500);
+  font-weight: 400;
+}
+
+.total-progress {
+  width: 180px;
+}
+
+.progress-bar {
+  height: 6px;
+  background: var(--gray-200);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  text-align: right;
+}
+
+.info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.info-card {
+  padding: 18px;
+  background: white;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--gray-200);
+}
+
+.info-card strong {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.info-card span {
+  font-size: 1.05rem;
+  color: var(--gray-800);
+  font-weight: 600;
+}
+
+#inicioAnoLetivo {
+  border-left: 4px solid var(--success);
+}
+
+#fimAnoLetivo {
+  border-left: 4px solid var(--primary);
+}
+
+/* ============================================
+   BOTÕES MINIMALISTAS
+============================================ */
+#buttons {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 24px;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-200);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+button {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  background: var(--gray-100);
+  color: var(--gray-700);
+  border: 1px solid var(--gray-200);
+}
+
+button:hover {
+  background: var(--gray-200);
+  transform: translateY(-1px);
+}
+
+#toggleEditMode {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary-dark);
+}
+
+#toggleEditMode:hover {
+  background: var(--primary-dark);
+}
+
+#resetCalendar {
+  background: white;
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+#resetCalendar:hover {
+  background: var(--danger);
+  color: white;
+}
+
+#exportJSON,
+#importJSON,
+#exportPDF,
+#goToViewer,
+#goToEditor,
+#backButton,
+#loginButton {
+  background: white;
+  color: var(--success);
+  border-color: var(--success);
+}
+
+#exportJSON:hover,
+#importJSON:hover,
+#exportPDF:hover,
+#goToViewer:hover,
+#goToEditor:hover,
+#backButton:hover,
+#loginButton:hover {
+  background: var(--success);
+  color: white;
+}
+
+/* Botão de impressão na visualização do mês */
+#printMonthView {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary-dark);
+}
+
+#printMonthView:hover {
+  background: var(--primary-dark);
+}
+
+/* Botão de deletar no modal */
+button.danger {
+  background: white;
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+button.danger:hover {
+  background: var(--danger);
+  color: white;
+}
+
+/* ============================================
+   INDICADOR DE MODO EDIÇÃO
+============================================ */
+#editModeIndicator {
+  display: none;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 30px;
+  padding: 14px;
+  border-radius: var(--border-radius);
+  background: var(--warning);
+  color: white;
+  font-size: 0.9rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#editModeIndicator.active {
+  display: block;
+}
+
+/* ============================================
+   CALENDÁRIO LIMPO
+============================================ */
+#yearCalendar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.month-container {
+  background: white;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--gray-200);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.month-header {
+  padding: 18px;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.month-header span:first-child {
+  font-weight: 600;
+  color: var(--gray-800);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.month-header span:first-child:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.edit-month-icon {
+  cursor: pointer;
+  color: var(--gray-500);
+  font-size: 1.1rem;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.edit-month-icon:hover {
+  background: var(--gray-200);
+  color: var(--gray-700);
+}
+
+.weekday-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 10px 0;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.weekday {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.weekday:nth-child(1),
+.weekday:nth-child(7) {
+  color: var(--gray-400);
+}
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background: var(--gray-200);
+  padding: 1px;
+}
+
+/* ============================================
+   CÉLULAS DE DIA SIMPLES - SEM INFORMAÇÃO VISÍVEL
+============================================ */
+.day-cell {
+  background: white;
+  min-height: 70px;
+  padding: 8px;
+  cursor: pointer;
+  position: relative;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+/* Em modo de visualização, não mostrar cursor pointer nos dias */
+body:not(.editor-mode) .day-cell {
+  cursor: default;
+}
+
+.day-cell:hover {
+  background: var(--gray-50);
+  z-index: 10;
+}
+
+/* Em modo de visualização, não mudar background no hover */
+body:not(.editor-mode) .day-cell:hover {
+  background: inherit;
+}
+
+.day-cell.non-editable {
+  cursor: not-allowed;
+  background: var(--gray-100);
+  color: var(--gray-400);
+}
+
+.day-cell.non-editable:hover {
+  background: var(--gray-100);
+}
+
+.day-number {
+  font-weight: 600;
+  color: var(--gray-700);
+  font-size: 0.85rem;
+  position: absolute;
+  top: 6px;
+  left: 6px;
+}
+
+/* REMOVIDO: .day-event - informações agora são mostradas apenas no tooltip */
+
+.empty-cell {
+  background: var(--gray-50);
+  min-height: 70px;
+}
+
+/* ============================================
+   ESTILOS ESPECIAIS PARA DIAS
+============================================ */
+.weekend {
+  background: var(--gray-50);
+}
+
+.last-day-2025 {
+  border: 2px solid var(--gray-700);
+}
+
+.first-day-2026 {
+  border: 2px solid var(--success);
+  background: var(--gray-50);
+}
+
+.last-day-2026 {
+  border: 2px solid var(--primary);
+  background: var(--gray-50);
+}
+
+/* ============================================
+   CONTAGEM MENSAL 2026 (SIMPLIFICADA)
+============================================ */
+.month-total {
+  padding: 14px;
+  border-top: 1px solid var(--gray-200);
+  background: var(--gray-50);
+  text-align: center;
+}
+
+.month-total-2026 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin-bottom: 2px;
+}
+
+.month-total-label {
+  font-size: 0.7rem;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================
+   MODAIS LIMPOS
+============================================ */
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.modal-content {
+  background: white;
+  padding: 28px;
+  width: 460px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-content h2 {
+  margin-bottom: 24px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--gray-800);
+}
+
+.modal-content label {
+  display: block;
+  margin: 14px 0 6px 0;
+  font-weight: 600;
+  color: var(--gray-700);
+  font-size: 0.85rem;
+}
+
+.modal-content select,
+.modal-content input[type="text"],
+.modal-content input[type="number"],
+.modal-content input[type="password"],
+.modal-content textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  background: white;
+}
+
+.modal-content select:focus,
+.modal-content input:focus,
+.modal-content textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(93, 147, 255, 0.1);
+}
+
+.modal-content textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.modal-actions button {
+  flex: 1;
+  padding: 10px;
+}
+
+.close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  cursor: pointer;
+  font-size: 22px;
+  color: var(--gray-500);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+.close:hover {
+  background: var(--gray-200);
+  color: var(--gray-700);
+}
+
+/* ============================================
+   SISTEMA DE CORES SUAVIZADO
+============================================ */
+/* Cores originais com saturação reduzida em 30% */
+.day-cell[data-type="comum"] {
+  background: #7bbf7d;
+  color: #1a3c1a;
+}
+.day-cell[data-type="evento"] {
+  background: #77b5fe;
+  color: #0a2c5a;
+}
+.day-cell[data-type="sabado_letivo"] {
+  background: #a3d17a;
+  color: #2a451a;
+}
+.day-cell[data-type="avaliacao"] {
+  background: #7986cb;
+  color: #0d153f;
+}
+.day-cell[data-type="feriado"] {
+  background: #ba68c8;
+  color: #2d0a33;
+}
+.day-cell[data-type="recesso"] {
+  background: #ffb74d;
+  color: #663500;
+}
+.day-cell[data-type="recesso_professores"] {
+  background: #ff8a65;
+  color: #5d1a00;
+}
+.day-cell[data-type="ferias"] {
+  background: #ff8a80;
+  color: #5d0000;
+}
+.day-cell[data-type="paralisacao"] {
+  background: #a1887f;
+  color: #2e1e1a;
+}
+.day-cell[data-type="recuperacao"] {
+  background: #ffd54f;
+  color: #5d4300;
+}
+
+/* Cores para dias com informação em finais de semana */
+.day-cell[data-type].weekend-no-color {
+  background: white !important;
+  color: var(--gray-600) !important;
+}
+
+.day-cell[data-type].colored-weekend {
+  opacity: 0.9;
+}
+
+/* Sábados letivos especiais */
+.day-cell.sabado-letivo-verde {
+  background: #a3d17a !important;
+  color: #2a451a !important;
+  border-left: 3px solid #4a7c29;
+}
+
+.day-cell.sabado-letivo-verde .day-number {
+  color: #2a451a !important;
+  font-weight: 700;
+}
+
+/* ============================================
+   TOOLTIPS PERSONALIZADOS
+============================================ */
+.day-cell[data-title] {
+  position: relative;
+}
+
+.day-cell[data-title]:hover::after {
+  content: attr(data-title);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gray-800);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 400;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  animation: fadeIn 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.day-cell[data-title]:hover::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: var(--gray-800);
+  z-index: 1001;
+  pointer-events: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* ============================================
+   ESTILOS PARA VISUALIZAÇÃO DO MÊS EM TAMANHO GRANDE
+============================================ */
+.month-view-day {
+  background: white;
+  min-height: 120px;
+  padding: 10px;
+  position: relative;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.month-view-day-number {
+  font-weight: 700;
+  color: var(--gray-700);
+  font-size: 1rem;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.month-view-day-content {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  line-height: 1.3;
+}
+
+.month-view-day-weekend {
+  background: var(--gray-50);
+}
+
+.month-view-day-empty {
+  background: var(--gray-100);
+  min-height: 120px;
+}
+
+/* Aplicar cores na visualização do mês */
+.month-view-day[data-type="comum"] {
+  background: #7bbf7d;
+  color: #1a3c1a;
+}
+.month-view-day[data-type="evento"] {
+  background: #77b5fe;
+  color: #0a2c5a;
+}
+.month-view-day[data-type="sabado_letivo"] {
+  background: #a3d17a;
+  color: #2a451a;
+}
+.month-view-day[data-type="avaliacao"] {
+  background: #7986cb;
+  color: #0d153f;
+}
+.month-view-day[data-type="feriado"] {
+  background: #ba68c8;
+  color: #2d0a33;
+}
+.month-view-day[data-type="recesso"] {
+  background: #ffb74d;
+  color: #663500;
+}
+.month-view-day[data-type="recesso_professores"] {
+  background: #ff8a65;
+  color: #5d1a00;
+}
+.month-view-day[data-type="ferias"] {
+  background: #ff8a80;
+  color: #5d0000;
+}
+.month-view-day[data-type="paralisacao"] {
+  background: #a1887f;
+  color: #2e1e1a;
+}
+.month-view-day[data-type="recuperacao"] {
+  background: #ffd54f;
+  color: #5d4300;
+}
+
+/* ============================================
+   RESPONSIVIDADE
+============================================ */
+@media (max-width: 1200px) {
+  #yearCalendar {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 20px 16px;
+  }
+
+  h1 {
+    font-size: 1.9rem;
+    margin-bottom: 32px;
+  }
+
+  #yearCalendar {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .button-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .modal-content {
+    width: 92%;
+    margin: 10px;
+    padding: 24px 20px;
+  }
+
+  .total-display {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .total-progress {
+    width: 100%;
+  }
+
+  .total-main {
+    font-size: 2.5rem;
+  }
+
+  /* Ajustes para visualização do mês em mobile */
+  .month-view-day {
+    min-height: 100px;
+    padding: 8px;
+  }
+
+  .month-view-day-number {
+    font-size: 0.9rem;
+  }
+
+  .month-view-day-content {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 16px 12px;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+  }
+
+  .total-main {
+    font-size: 2.2rem;
+  }
+
+  .month-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 16px;
+  }
+
+  .edit-month-icon {
+    align-self: flex-end;
+    margin-top: -28px;
+  }
+
+  .day-cell {
+    min-height: 65px;
+    padding: 6px 4px;
+  }
+
+  .day-number {
+    font-size: 0.78rem;
+    top: 4px;
+    left: 4px;
+  }
+
+  .day-cell[data-title]:hover::after {
+    font-size: 0.75rem;
+    padding: 6px 10px;
+    max-width: 250px;
+  }
+
+  /* Ajustes para visualização do mês em mobile muito pequeno */
+  .month-view-day {
+    min-height: 80px;
+    padding: 6px 4px;
+  }
+}
+
+/* ============================================
+   UTILITÁRIOS
+============================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.mt-1 {
+  margin-top: 0.25rem;
+}
+.mt-2 {
+  margin-top: 0.5rem;
+}
+.mt-3 {
+  margin-top: 0.75rem;
+}
+.mt-4 {
+  margin-top: 1rem;
+}
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+.mb-4 {
+  margin-bottom: 1rem;
+}
+/* Adicionar ao final do arquivo, na seção de botões */
+
+#logoutButton {
+  background: white;
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+#logoutButton:hover {
+  background: var(--danger);
+  color: white;
+}
