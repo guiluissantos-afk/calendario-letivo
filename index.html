@@ -3,12 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calendário Letivo  2026 - EEMTI Filgueiras Lima</title>
+    <title>Calendário Letivo 2026 - Visualização</title>
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <h1>Calendário Letivo 2026 - EEMTI Filgueiras Lima</h1>
+    <!-- NOVO: Container para logomarca e título -->
+    <div id="header-container">
+      <div id="logo-container">
+        <!-- Logomarca será carregada aqui via JavaScript -->
+        <img
+          id="school-logo"
+          src=""
+          alt="Logomarca da Escola"
+          style="display: none"
+        />
+      </div>
+      <div id="title-container">
+        <h1 id="main-title">Calendário Letivo 2026 - Visualização</h1>
+        <div
+          id="school-name"
+          style="
+            display: none;
+            margin-top: 5px;
+            font-size: 1.1rem;
+            color: var(--gray-600);
+          "
+        >
+          <!-- Nome da escola será inserido aqui -->
+        </div>
+      </div>
+    </div>
 
     <div id="totals">
       <h2>Ano Letivo 2026</h2>
@@ -36,6 +61,73 @@
           <strong>Fim</strong>
           <span>Não definido</span>
         </div>
+      </div>
+    </div>
+
+    <!-- NOVA SEÇÃO: Legenda das Cores -->
+    <div
+      id="colorLegend"
+      style="
+        background: white;
+        padding: 24px;
+        border-radius: var(--border-radius);
+        margin-bottom: 30px;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--gray-200);
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+      "
+    >
+      <h2
+        style="
+          margin: 0 0 20px 0;
+          font-size: 0.95rem;
+          color: var(--gray-600);
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        "
+      >
+        <span
+          style="
+            content: '';
+            width: 5px;
+            height: 18px;
+            background: var(--primary);
+            border-radius: 2px;
+          "
+        ></span>
+        Legenda das Cores
+      </h2>
+
+      <div
+        id="legendItems"
+        style="
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 12px;
+        "
+      >
+        <!-- As legendas serão inseridas aqui via JavaScript -->
+      </div>
+
+      <div
+        style="
+          margin-top: 20px;
+          padding-top: 15px;
+          border-top: 1px solid var(--gray-200);
+          font-size: 0.9rem;
+          color: var(--gray-500);
+        "
+      >
+        <p>
+          <strong>Observação:</strong> As cores podem ser personalizadas pelo
+          editor. Esta legenda mostra as cores atualmente em uso no calendário.
+        </p>
       </div>
     </div>
 
@@ -113,15 +205,6 @@
     <script>
       // ---------- CONFIGURE AQUI ----------
       // Troque o objeto abaixo pelo seu FIREBASE_CONFIG fornecido no console do Firebase
-      // Como exemplo:
-      // const FIREBASE_CONFIG = {
-      //   apiKey: "AIzaS...yourApiKey...",
-      //   authDomain: "your-project.firebaseapp.com",
-      //   projectId: "your-project-id",
-      //   storageBucket: "your-project-id.appspot.com",
-      //   messagingSenderId: "1234567890",
-      //   appId: "1:1234567890:web:abcdef",
-      // };
       const FIREBASE_CONFIG = {
         apiKey: "AIzaSyBoJ0fleRy89A5m43Giu-M17qbbTSOYopk",
         authDomain: "calendario-letivo-6c027.firebaseapp.com",
@@ -131,6 +214,16 @@
         appId: "1:953319249148:web:f35074ab1303131187b379",
       };
       window.FIREBASE_CONFIG = FIREBASE_CONFIG;
+
+      // NOVO: Configuração da Escola
+      // Modifique estas variáveis para personalizar para cada escola
+      const SCHOOL_CONFIG = {
+        name: "EEMTI Filgueiras Lima", // Altere para o nome da escola
+        logo: "logo.png", // Nome do arquivo da logo (logo.png ou logo.jpg)
+        logoAlt: "Logomarca da Escola", // Texto alternativo para acessibilidade
+        showInPDF: true, // Se true, a logo aparecerá no PDF exportado
+      };
+      window.SCHOOL_CONFIG = SCHOOL_CONFIG;
     </script>
 
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
@@ -151,6 +244,9 @@
         ) {
           initFirebase(); // function injected by script.js
         }
+
+        // NOVO: Carregar logomarca da escola
+        loadSchoolLogo();
 
         // Inicializar calendário em modo somente leitura
         editMode = false;
@@ -192,10 +288,74 @@
             document.getElementById("monthViewModal").style.display = "none";
           });
       });
+
+      // NOVA FUNÇÃO: Carregar logomarca da escola
+      function loadSchoolLogo() {
+        const schoolConfig = window.SCHOOL_CONFIG || {};
+        const logoElement = document.getElementById("school-logo");
+        const schoolNameElement = document.getElementById("school-name");
+        const mainTitleElement = document.getElementById("main-title");
+
+        // Configurar nome da escola se fornecido
+        if (schoolConfig.name && schoolConfig.name !== "Nome da Escola") {
+          schoolNameElement.textContent = schoolConfig.name;
+          schoolNameElement.style.display = "block";
+
+          // Atualizar título principal para incluir nome da escola
+          if (mainTitleElement) {
+            mainTitleElement.textContent = `Calendário Letivo 2026 - ${schoolConfig.name}`;
+          }
+        }
+
+        // Tentar carregar a logomarca
+        if (
+          schoolConfig.logo &&
+          (schoolConfig.logo === "logo.png" || schoolConfig.logo === "logo.jpg")
+        ) {
+          logoElement.src = schoolConfig.logo;
+          logoElement.alt = schoolConfig.logoAlt || "Logomarca da Escola";
+
+          // Quando a imagem carregar, mostrar e ajustar estilos
+          logoElement.onload = function () {
+            logoElement.style.display = "block";
+            logoElement.style.maxHeight = "80px";
+            logoElement.style.maxWidth = "200px";
+            logoElement.style.objectFit = "contain";
+            logoElement.style.marginRight = "20px";
+          };
+
+          // Se a imagem não carregar, tentar alternativas
+          logoElement.onerror = function () {
+            console.warn(
+              `Logomarca "${schoolConfig.logo}" não encontrada. Tentando alternativas...`
+            );
+
+            // Tentar com diferentes extensões
+            const alternativeExtensions = ["png", "jpg", "jpeg", "svg", "webp"];
+            const baseName = schoolConfig.logo.split(".")[0];
+
+            let tryCount = 0;
+            const tryNextLogo = () => {
+              if (tryCount < alternativeExtensions.length) {
+                const altLogo = `${baseName}.${alternativeExtensions[tryCount]}`;
+                logoElement.src = altLogo;
+                tryCount++;
+              } else {
+                console.warn(
+                  "Nenhuma logomarca encontrada. Usando layout sem logo."
+                );
+                logoElement.style.display = "none";
+              }
+            };
+
+            logoElement.onerror = tryNextLogo;
+            tryNextLogo();
+          };
+        } else {
+          // Se não houver configuração de logo, esconder o container
+          document.getElementById("logo-container").style.display = "none";
+        }
+      }
     </script>
   </body>
 </html>
-
-
-
-
