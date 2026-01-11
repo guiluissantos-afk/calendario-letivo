@@ -1,3 +1,4 @@
+
 /* =========================================================
    CALENDÁRIO LETIVO – SCRIPT FINAL COM DATAS FIXAS + FIRESTORE
    Guilherme – Versão 2026
