@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calendário Letivo 2025/2026 EEMTI Filgueiras Lima- Editor</title>
+    <title>Calendário Letivo 2026 - Editor</title>
     <link rel="stylesheet" href="style.css" />
   </head>
 
@@ -19,7 +19,31 @@
       "
     >
       <div class="modal-content" style="width: 400px">
-        <h2>Acesso ao Editor</h2>
+        <div style="text-align: center; margin-bottom: 20px">
+          <!-- NOVO: Logomarca no login -->
+          <img
+            id="login-logo"
+            src=""
+            alt="Logomarca da Escola"
+            style="
+              max-height: 60px;
+              max-width: 150px;
+              margin-bottom: 15px;
+              display: none;
+            "
+          />
+          <h2>Acesso ao Editor</h2>
+          <div
+            id="login-school-name"
+            style="
+              color: var(--gray-600);
+              margin-bottom: 10px;
+              font-size: 0.9rem;
+            "
+          >
+            <!-- Nome da escola será inserido aqui -->
+          </div>
+        </div>
         <p style="margin-bottom: 20px; color: var(--gray-600)">
           Digite a senha para acessar o modo de edição:
         </p>
@@ -55,7 +79,31 @@
 
     <!-- Conteúdo do editor (aparece após login) -->
     <div id="editorContent" style="display: none">
-      <h1>Calendário Letivo 2025/2026 - Editor</h1>
+      <!-- NOVO: Container para logomarca e título no editor -->
+      <div id="header-container">
+        <div id="logo-container">
+          <img
+            id="school-logo"
+            src=""
+            alt="Logomarca da Escola"
+            style="display: none"
+          />
+        </div>
+        <div id="title-container">
+          <h1 id="main-title">Calendário Letivo 2025/2026 - Editor</h1>
+          <div
+            id="school-name"
+            style="
+              display: none;
+              margin-top: 5px;
+              font-size: 1.1rem;
+              color: var(--gray-600);
+            "
+          >
+            <!-- Nome da escola será inserido aqui -->
+          </div>
+        </div>
+      </div>
 
       <div id="totals">
         <h2>Ano Letivo 2026</h2>
@@ -121,7 +169,129 @@
             <option value="ferias">Férias</option>
             <option value="paralisacao">Paralisação</option>
             <option value="recuperacao">Recuperação Final</option>
+            <option value="personalizado">Personalizado</option>
           </select>
+
+          <!-- NOVO: Seletor de cor personalizada -->
+          <div style="margin: 15px 0">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600">
+              Cor do dia:
+              <span
+                id="currentColorPreview"
+                style="
+                  display: inline-block;
+                  width: 20px;
+                  height: 20px;
+                  margin-left: 10px;
+                  vertical-align: middle;
+                  border: 1px solid var(--gray-300);
+                  border-radius: 4px;
+                "
+              ></span>
+            </label>
+            <div
+              style="
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                margin-bottom: 10px;
+              "
+            >
+              <!-- Cores padrão -->
+              <div
+                class="color-option"
+                data-color="#7bbf7d"
+                title="Dia Letivo"
+                style="background-color: #7bbf7d"
+              ></div>
+              <div
+                class="color-option"
+                data-color="#77b5fe"
+                title="Evento Escolar"
+                style="background-color: #77b5fe"
+              ></div>
+              <div
+                class="color-option"
+                data-color="#a3d17a"
+                title="Sábado Letivo"
+                style="background-color: #a3d17a"
+              ></div>
+              <div
+                class="color-option"
+                data-color="#7986cb"
+                title="Avaliação"
+                style="background-color: #7986cb"
+              ></div>
+              <div
+                class="color-option"
+                data-color="#ba68c8"
+                title="Feriado"
+                style="background-color: #ba68c8"
+              ></div>
+              <div
+                class="color-option"
+                data-color="#ffb74d"
+                title="Recesso"
+                style="background-color: #ffb74d"
+              ></div>
+              <div
+                class="color-option"
+                data-color="#ff8a65"
+                title="Recesso Professores"
+                style="background-color: #ff8a65"
+              ></div>
+              <div
+                class="color-option"
+                data-color="#ff8a80"
+                title="Férias"
+                style="background-color: #ff8a80"
+              ></div>
+              <div
+                class="color-option"
+                data-color="#a1887f"
+                title="Paralisação"
+                style="background-color: #a1887f"
+              ></div>
+              <div
+                class="color-option"
+                data-color="#ffd54f"
+                title="Recuperação"
+                style="background-color: #ffd54f"
+              ></div>
+            </div>
+
+            <!-- Seletor de cor personalizado -->
+            <div style="display: flex; gap: 10px; align-items: center">
+              <input
+                type="color"
+                id="dayColorPicker"
+                value="#7bbf7d"
+                style="width: 60px; height: 40px"
+              />
+              <input
+                type="text"
+                id="dayColorInput"
+                placeholder="#HEX ou nome"
+                style="
+                  flex: 1;
+                  padding: 8px;
+                  border: 1px solid var(--gray-300);
+                  border-radius: 6px;
+                "
+              />
+              <button
+                id="applyCustomColor"
+                style="padding: 8px 12px; font-size: 0.8rem"
+              >
+                Aplicar
+              </button>
+            </div>
+            <div
+              style="font-size: 0.8rem; color: var(--gray-500); margin-top: 5px"
+            >
+              Clique nas cores acima ou use o seletor personalizado
+            </div>
+          </div>
 
           <label>Título:</label>
           <input type="text" id="dayTitle" />
@@ -129,9 +299,19 @@
           <label>Descrição:</label>
           <textarea id="dayDescription"></textarea>
 
-          <div class="modal-actions">
-            <button id="setPeriodStart">Definir Início do Período</button>
-            <button id="setPeriodEnd">Definir Fim do Período</button>
+          <!-- Checkbox para contar como dia letivo -->
+          <div
+            style="
+              margin: 15px 0;
+              display: flex;
+              align-items: center;
+              gap: 10px;
+            "
+          >
+            <input type="checkbox" id="dayCountAsLetivo" style="width: auto" />
+            <label for="dayCountAsLetivo" style="margin: 0; font-weight: 600">
+              Contar como dia letivo (para os 200 dias)
+            </label>
           </div>
 
           <div class="modal-actions">
@@ -243,6 +423,15 @@
         appId: "1:953319249148:web:f35074ab1303131187b379",
       };
       window.FIREBASE_CONFIG = FIREBASE_CONFIG;
+
+      // NOVO: Configuração da Escola (mesmo do index.html)
+      const SCHOOL_CONFIG = {
+        name: "Nome da Escola", // Altere para o nome da escola
+        logo: "logo.png", // Nome do arquivo da logo (logo.png ou logo.jpg)
+        logoAlt: "Logomarca da Escola", // Texto alternativo para acessibilidade
+        showInPDF: true, // Se true, a logo aparecerá no PDF exportado
+      };
+      window.SCHOOL_CONFIG = SCHOOL_CONFIG;
     </script>
 
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
@@ -264,6 +453,10 @@
         ) {
           initFirebase(); // function from script.js
         }
+
+        // NOVO: Carregar logomarca da escola
+        loadSchoolLogo();
+        loadSchoolLoginLogo();
 
         // SEMPRE mostrar tela de login primeiro
         document.getElementById("loginScreen").style.display = "flex";
@@ -359,8 +552,127 @@
         // Configurar sessão (para logout automático após tempo)
         setupSession();
       }
+
+      // NOVA FUNÇÃO: Carregar logomarca da escola para o editor
+      function loadSchoolLogo() {
+        const schoolConfig = window.SCHOOL_CONFIG || {};
+        const logoElement = document.getElementById("school-logo");
+        const schoolNameElement = document.getElementById("school-name");
+        const mainTitleElement = document.getElementById("main-title");
+
+        // Configurar nome da escola se fornecido
+        if (schoolConfig.name && schoolConfig.name !== "Nome da Escola") {
+          schoolNameElement.textContent = schoolConfig.name;
+          schoolNameElement.style.display = "block";
+
+          // Atualizar título principal para incluir nome da escola
+          if (mainTitleElement) {
+            mainTitleElement.textContent = `Calendário Letivo 2025/2026 - ${schoolConfig.name} - Editor`;
+          }
+        }
+
+        // Tentar carregar a logomarca
+        if (
+          schoolConfig.logo &&
+          (schoolConfig.logo === "logo.png" || schoolConfig.logo === "logo.jpg")
+        ) {
+          logoElement.src = schoolConfig.logo;
+          logoElement.alt = schoolConfig.logoAlt || "Logomarca da Escola";
+
+          // Quando a imagem carregar, mostrar e ajustar estilos
+          logoElement.onload = function () {
+            logoElement.style.display = "block";
+            logoElement.style.maxHeight = "80px";
+            logoElement.style.maxWidth = "200px";
+            logoElement.style.objectFit = "contain";
+            logoElement.style.marginRight = "20px";
+          };
+
+          // Se a imagem não carregar, tentar alternativas
+          logoElement.onerror = function () {
+            console.warn(
+              `Logomarca "${schoolConfig.logo}" não encontrada. Tentando alternativas...`
+            );
+
+            // Tentar com diferentes extensões
+            const alternativeExtensions = ["png", "jpg", "jpeg", "svg", "webp"];
+            const baseName = schoolConfig.logo.split(".")[0];
+
+            let tryCount = 0;
+            const tryNextLogo = () => {
+              if (tryCount < alternativeExtensions.length) {
+                const altLogo = `${baseName}.${alternativeExtensions[tryCount]}`;
+                logoElement.src = altLogo;
+                tryCount++;
+              } else {
+                console.warn(
+                  "Nenhuma logomarca encontrada. Usando layout sem logo."
+                );
+                logoElement.style.display = "none";
+              }
+            };
+
+            logoElement.onerror = tryNextLogo;
+            tryNextLogo();
+          };
+        } else {
+          // Se não houver configuração de logo, esconder o container
+          document.getElementById("logo-container").style.display = "none";
+        }
+      }
+
+      // NOVA FUNÇÃO: Carregar logomarca para a tela de login
+      function loadSchoolLoginLogo() {
+        const schoolConfig = window.SCHOOL_CONFIG || {};
+        const loginLogoElement = document.getElementById("login-logo");
+        const loginSchoolNameElement =
+          document.getElementById("login-school-name");
+
+        // Configurar nome da escola no login
+        if (schoolConfig.name && schoolConfig.name !== "Nome da Escola") {
+          loginSchoolNameElement.textContent = schoolConfig.name;
+        }
+
+        // Tentar carregar a logomarca para o login
+        if (
+          schoolConfig.logo &&
+          (schoolConfig.logo === "logo.png" || schoolConfig.logo === "logo.jpg")
+        ) {
+          loginLogoElement.src = schoolConfig.logo;
+          loginLogoElement.alt = schoolConfig.logoAlt || "Logomarca da Escola";
+
+          // Quando a imagem carregar, mostrar
+          loginLogoElement.onload = function () {
+            loginLogoElement.style.display = "inline-block";
+          };
+
+          // Se a imagem não carregar, tentar alternativas
+          loginLogoElement.onerror = function () {
+            console.warn(
+              `Logomarca "${schoolConfig.logo}" não encontrada para login. Tentando alternativas...`
+            );
+
+            // Tentar com diferentes extensões
+            const alternativeExtensions = ["png", "jpg", "jpeg", "svg", "webp"];
+            const baseName = schoolConfig.logo.split(".")[0];
+
+            let tryCount = 0;
+            const tryNextLogo = () => {
+              if (tryCount < alternativeExtensions.length) {
+                const altLogo = `${baseName}.${alternativeExtensions[tryCount]}`;
+                loginLogoElement.src = altLogo;
+                tryCount++;
+              } else {
+                console.warn("Nenhuma logomarca encontrada para login.");
+                loginLogoElement.style.display = "none";
+              }
+            };
+
+            loginLogoElement.onerror = tryNextLogo;
+            tryNextLogo();
+          };
+        }
+      }
     </script>
   </body>
 </html>
-
-
