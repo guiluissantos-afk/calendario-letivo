@@ -284,67 +284,67 @@ function applyRecuperacaoFinal() {
 }
 
 function restoreFixedDates() {
-  const years = [2026, 2027];
+  // CORREÇÃO: Restaurar apenas para 2026, não para 2027
+  const year = 2026;
+  
+  let janIndex = -1, febIndex = -1;
 
-  years.forEach((year) => {
-    // CORREÇÃO: Encontrar os índices corretos para Janeiro e Fevereiro de cada ano
-    let janIndex = -1,
-      febIndex = -1;
-
-    for (let i = 0; i < calendarData.months.length; i++) {
-      const { month: actualMonth, year: actualYear } = getActualMonthAndYear(i);
-      
-      if (actualYear === year) {
-        // CORREÇÃO: Janeiro é o mês 1 (janeiro), Fevereiro é o mês 2 (fevereiro)
-        if (actualMonth === 1) {
-          janIndex = i;
-        }
-        if (actualMonth === 2) {
-          febIndex = i;
-        }
+  for (let i = 0; i < calendarData.months.length; i++) {
+    const { month: actualMonth, year: actualYear } = getActualMonthAndYear(i);
+    
+    if (actualYear === year) {
+      // Janeiro é o mês 1, Fevereiro é o mês 2
+      if (actualMonth === 1) {
+        janIndex = i;
+      }
+      if (actualMonth === 2) {
+        febIndex = i;
       }
     }
+    
+    // Parar quando encontrar meses de 2027
+    if (actualYear > 2026) {
+      break;
+    }
+  }
 
-    // CORREÇÃO: Restaurar datas apenas se os índices foram encontrados
-    if (janIndex !== -1) {
-      const fixedJanDays = {
-        1: {
-          type: "feriado",
-          title: "Confraternização Universal",
-          letivo: false,
-          color: COLOR_MAP.feriado,
-        },
-        2: {
-          type: "recesso",
-          title: "Recesso",
-          letivo: false,
-          color: COLOR_MAP.recesso,
-        },
-      };
+  // Restaurar Janeiro 2026
+  if (janIndex !== -1) {
+    const fixedJanDays = {
+      1: {
+        type: "feriado",
+        title: "Confraternização Universal",
+        letivo: false,
+        color: COLOR_MAP.feriado,
+      },
+      2: {
+        type: "recesso",
+        title: "Recesso",
+        letivo: false,
+        color: COLOR_MAP.recesso,
+      },
+    };
 
-      for (let day in fixedJanDays) {
-        // CORREÇÃO: Não sobrescrever dados existentes se já houverem
-        if (!calendarData.months[janIndex].daysData[day]) {
-          calendarData.months[janIndex].daysData[day] = { ...fixedJanDays[day] };
-        }
+    for (let day in fixedJanDays) {
+      // Aplicar apenas dias 1 e 2 de Janeiro 2026, não sobrescrever outros dias
+      if (day === "1" || day === "2") {
+        calendarData.months[janIndex].daysData[day] = { ...fixedJanDays[day] };
       }
     }
+  }
 
-    if (febIndex !== -1) {
-      // CORREÇÃO: Não sobrescrever o dia 9 de fevereiro se já tiver dados
-      if (!calendarData.months[febIndex].daysData[9]) {
-        calendarData.months[febIndex].daysData[9] = {
-          type: "comum",
-          title: `Início do ano letivo ${year}`,
-          letivo: true,
-          color: COLOR_MAP.comum,
-        };
-      }
-    }
-  });
+  // Restaurar Fevereiro 2026
+  if (febIndex !== -1) {
+    // Apenas dia 9 de Fevereiro 2026 (início do ano letivo)
+    calendarData.months[febIndex].daysData[9] = {
+      type: "comum",
+      title: `Início do ano letivo ${year}`,
+      letivo: true,
+      color: COLOR_MAP.comum,
+    };
+  }
 
-  // CORREÇÃO: Aplicar recuperação final separadamente para não interferir
-  applyRecuperacaoFinal();
+  // NÃO restaurar datas fixas para 2027 - deixar como dados do usuário
 }
 
 function detectEndDate2026() {
