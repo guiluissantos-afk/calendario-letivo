@@ -1,4 +1,3 @@
-
 /* =========================================================
    CALENDÁRIO LETIVO – SCRIPT FINAL COM DATAS FIXAS + FIRESTORE
    Guilherme – Versão 2026
@@ -288,17 +287,25 @@ function restoreFixedDates() {
   const years = [2026, 2027];
 
   years.forEach((year) => {
+    // CORREÇÃO: Encontrar os índices corretos para Janeiro e Fevereiro de cada ano
     let janIndex = -1,
       febIndex = -1;
 
     for (let i = 0; i < calendarData.months.length; i++) {
       const { month: actualMonth, year: actualYear } = getActualMonthAndYear(i);
+      
       if (actualYear === year) {
-        if (actualMonth === 1) janIndex = i;
-        if (actualMonth === 2) febIndex = i;
+        // CORREÇÃO: Janeiro é o mês 1 (janeiro), Fevereiro é o mês 2 (fevereiro)
+        if (actualMonth === 1) {
+          janIndex = i;
+        }
+        if (actualMonth === 2) {
+          febIndex = i;
+        }
       }
     }
 
+    // CORREÇÃO: Restaurar datas apenas se os índices foram encontrados
     if (janIndex !== -1) {
       const fixedJanDays = {
         1: {
@@ -316,20 +323,27 @@ function restoreFixedDates() {
       };
 
       for (let day in fixedJanDays) {
-        calendarData.months[janIndex].daysData[day] = { ...fixedJanDays[day] };
+        // CORREÇÃO: Não sobrescrever dados existentes se já houverem
+        if (!calendarData.months[janIndex].daysData[day]) {
+          calendarData.months[janIndex].daysData[day] = { ...fixedJanDays[day] };
+        }
       }
     }
 
     if (febIndex !== -1) {
-      calendarData.months[febIndex].daysData[9] = {
-        type: "comum",
-        title: `Início do ano letivo ${year}`,
-        letivo: true,
-        color: COLOR_MAP.comum,
-      };
+      // CORREÇÃO: Não sobrescrever o dia 9 de fevereiro se já tiver dados
+      if (!calendarData.months[febIndex].daysData[9]) {
+        calendarData.months[febIndex].daysData[9] = {
+          type: "comum",
+          title: `Início do ano letivo ${year}`,
+          letivo: true,
+          color: COLOR_MAP.comum,
+        };
+      }
     }
   });
 
+  // CORREÇÃO: Aplicar recuperação final separadamente para não interferir
   applyRecuperacaoFinal();
 }
 
