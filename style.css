@@ -1137,3 +1137,241 @@ input[type="color"] {
     height: 25px;
   }
 }
+/* Adicione este CSS ao final do arquivo style.css */
+/* ============================================
+   ESTILOS DE IMPRESSÃO - CADA MÊS EM UMA PÁGINA
+============================================ */
+
+@media print {
+  /* Reset básico para impressão */
+  body {
+    padding: 0;
+    margin: 0;
+    background: white;
+  }
+
+  /* Esconder elementos que não devem ser impressos */
+  #buttons,
+  #totals,
+  #colorLegend,
+  #editModeIndicator,
+  .modal,
+  button,
+  .close,
+  .edit-month-icon,
+  #header-container,
+  .button-row,
+  #goToEditor,
+  #exportPDF,
+  #printMonthView,
+  .modal-actions {
+    display: none !important;
+  }
+
+  /* Container principal da impressão */
+  .print-month-container {
+    page-break-after: always;
+    page-break-inside: avoid;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  .print-month-container:last-child {
+    page-break-after: auto;
+  }
+
+  /* Cabeçalho do mês na impressão */
+  .print-month-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #333;
+  }
+
+  .print-month-header h2 {
+    font-size: 24pt;
+    margin: 0 0 10px 0;
+    color: #1a1a1a;
+  }
+
+  /* Informações da escola na impressão */
+  .print-school-info {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 12pt;
+    color: #555;
+  }
+
+  .print-school-name {
+    font-size: 14pt;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  /* Tabela do calendário para impressão */
+  .print-calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 10pt;
+  }
+
+  .print-calendar-table th,
+  .print-calendar-table td {
+    border: 1px solid #ccc;
+    padding: 8px 4px;
+    vertical-align: top;
+    text-align: left;
+  }
+
+  .print-calendar-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    text-align: center;
+    font-size: 11pt;
+  }
+
+  .print-calendar-table td {
+    height: 70px;
+    width: 14.28%;
+  }
+
+  .print-day-number {
+    font-weight: bold;
+    font-size: 11pt;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 3px;
+  }
+
+  .print-event-title {
+    font-size: 8pt;
+    font-weight: 500;
+    margin: 2px 0;
+  }
+
+  .print-event-desc {
+    font-size: 7pt;
+    color: #555;
+    margin: 2px 0;
+  }
+
+  .print-letivo-badge {
+    font-size: 7pt;
+    font-style: italic;
+    color: #2c6e2c;
+    margin-top: 3px;
+  }
+
+  /* Seção de detalhes do mês na impressão */
+  .print-month-details {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+  }
+
+  .print-month-description {
+    margin-bottom: 15px;
+  }
+
+  .print-month-description strong,
+  .print-month-notes strong,
+  .print-month-target strong {
+    font-weight: bold;
+    color: #333;
+  }
+
+  .print-month-description p,
+  .print-month-notes p {
+    margin: 5px 0 0 0;
+    font-size: 9pt;
+    line-height: 1.4;
+  }
+
+  .print-month-notes {
+    margin-bottom: 10px;
+    font-size: 9pt;
+  }
+
+  .print-month-target {
+    font-size: 9pt;
+    font-weight: bold;
+    color: #2c6e2c;
+  }
+
+  /* Legenda na impressão */
+  .print-legend {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    font-size: 8pt;
+  }
+
+  .print-legend h4 {
+    margin: 0 0 8px 0;
+    font-size: 10pt;
+  }
+
+  .print-legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .print-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-right: 15px;
+  }
+
+  .print-legend-color {
+    width: 12px;
+    height: 12px;
+    border: 1px solid #999;
+  }
+
+  /* Informações de rodapé na impressão */
+  .print-footer {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 8pt;
+    color: #999;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+  }
+
+  /* Cores para impressão (mantendo contraste) */
+  .print-event-comum { background-color: #e8f5e8; }
+  .print-event-evento { background-color: #e3f0ff; }
+  .print-event-avaliacao { background-color: #ecefff; }
+  .print-event-sabado_letivo { background-color: #eaf5e0; }
+  .print-event-feriado { background-color: #f5e6f7; }
+  .print-event-recesso { background-color: #fff3e0; }
+  .print-event-recesso_professores { background-color: #ffede5; }
+  .print-event-ferias { background-color: #ffe8e6; }
+  .print-event-paralisacao { background-color: #f0ecea; }
+  .print-event-recuperacao { background-color: #fff8e0; }
+  .print-event-personalizado { background-color: #f5f5f5; }
+
+  /* Forçar quebra de página entre meses */
+  .page-break {
+    page-break-before: always;
+  }
+
+  /* Ajustes para evitar cortes */
+  * {
+    page-break-inside: avoid;
+  }
+
+  /* Garantir que o conteúdo não corte */
+  body, .print-month-container {
+    margin: 0;
+    padding: 0;
+  }
+}
