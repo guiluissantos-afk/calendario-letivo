@@ -509,9 +509,9 @@
         // Configurar botão de imprimir visualização do mês
         document
           .getElementById("printMonthView")
-          .addEventListener("click", function () {
-            window.print();
-          });
+  .addEventListener("click", function () {
+    printAllMonths();
+  });
 
         // Fechar modais ao clicar fora
         window.addEventListener("click", function (event) {
