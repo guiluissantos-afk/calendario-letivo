@@ -158,7 +158,6 @@ const initialCalendarData = {
   ],
 };
 
-// CORREÇÃO 1: Declarar periodStart e periodEnd no escopo global
 let periodStart = null;
 let periodEnd = null;
 
@@ -262,7 +261,6 @@ function applyRecuperacaoFinal() {
 
       let monthIndex = -1;
       for (let i = 0; i < calendarData.months.length; i++) {
-        const month = calendarData.months[i];
         const { month: monthFromIndex, year: yearFromIndex } =
           getActualMonthAndYear(i);
         if (yearFromIndex === year && monthFromIndex === actualMonth + 1) {
@@ -284,7 +282,6 @@ function applyRecuperacaoFinal() {
 }
 
 function restoreFixedDates() {
-  // CORREÇÃO: Restaurar apenas para 2026, não para 2027
   const year = 2026;
   
   let janIndex = -1, febIndex = -1;
@@ -293,7 +290,6 @@ function restoreFixedDates() {
     const { month: actualMonth, year: actualYear } = getActualMonthAndYear(i);
     
     if (actualYear === year) {
-      // Janeiro é o mês 1, Fevereiro é o mês 2
       if (actualMonth === 1) {
         janIndex = i;
       }
@@ -302,13 +298,11 @@ function restoreFixedDates() {
       }
     }
     
-    // Parar quando encontrar meses de 2027
     if (actualYear > 2026) {
       break;
     }
   }
 
-  // Restaurar Janeiro 2026
   if (janIndex !== -1) {
     const fixedJanDays = {
       1: {
@@ -326,16 +320,13 @@ function restoreFixedDates() {
     };
 
     for (let day in fixedJanDays) {
-      // Aplicar apenas dias 1 e 2 de Janeiro 2026, não sobrescrever outros dias
       if (day === "1" || day === "2") {
         calendarData.months[janIndex].daysData[day] = { ...fixedJanDays[day] };
       }
     }
   }
 
-  // Restaurar Fevereiro 2026
   if (febIndex !== -1) {
-    // Apenas dia 9 de Fevereiro 2026 (início do ano letivo)
     calendarData.months[febIndex].daysData[9] = {
       type: "comum",
       title: `Início do ano letivo ${year}`,
@@ -343,8 +334,6 @@ function restoreFixedDates() {
       color: COLOR_MAP.comum,
     };
   }
-
-  // NÃO restaurar datas fixas para 2027 - deixar como dados do usuário
 }
 
 function detectEndDate2026() {
@@ -398,7 +387,6 @@ function detectStartDate2026() {
   return null;
 }
 
-// CORREÇÃO 2: Adicionar Virtual DOM para otimização
 class MonthRenderer {
   constructor(monthIndex, monthData) {
     this.monthIndex = monthIndex;
@@ -733,7 +721,6 @@ class MonthRenderer {
   }
 }
 
-// Renderers cache para Virtual DOM
 let monthRenderers = [];
 
 function renderCalendar() {
@@ -744,14 +731,12 @@ function renderCalendar() {
     fimAnoLetivoEl = document.getElementById("fimAnoLetivo");
   }
 
-  // Inicializar renderers se necessário
   if (monthRenderers.length !== calendarData.months.length) {
     monthRenderers = calendarData.months.map(
       (month, index) => new MonthRenderer(index, month)
     );
   }
 
-  // Usar fragmento de documento para renderização em lote
   const fragment = document.createDocumentFragment();
 
   calendarData.months.forEach((month, monthIndex) => {
@@ -769,7 +754,6 @@ function renderCalendar() {
     fragment.appendChild(renderer.render());
   });
 
-  // Limpar e renderizar em lote
   yearCalendarEl.innerHTML = "";
   yearCalendarEl.appendChild(fragment);
 
@@ -1034,7 +1018,7 @@ let dayCountAsLetivoCheckbox,
   dayColorInput,
   applyCustomColorBtn;
 let colorOptions, currentColorPreview;
-let saveDayBtn, setStartBtn, setEndBtn, deleteDayBtn;
+let saveDayBtn, deleteDayBtn;
 let selectedMonth = null,
   selectedDay = null;
 
@@ -1055,9 +1039,6 @@ function initEditorModals() {
 
   saveDayBtn = document.getElementById("saveDay");
   deleteDayBtn = document.getElementById("deleteDay");
-
-  // REMOVIDO: Referências aos botões "Copiar Configuração" e "Colar Período"
-  // setStartBtn e setEndBtn não existem mais
 
   if (closeDayModal && !closeDayModal.hasListener) {
     closeDayModal.addEventListener("click", () => {
@@ -1095,9 +1076,6 @@ function initEditorModals() {
     });
     deleteDayBtn.hasListener = true;
   }
-
-  // REMOVIDO: Event listeners para setStartBtn e setEndBtn
-  // Esses botões não existem mais na interface
 
   if (colorOptions && colorOptions.length > 0 && !colorOptions[0].hasListener) {
     colorOptions.forEach((option) => {
@@ -1719,7 +1697,6 @@ function openMonthViewModal(monthIndex) {
   monthViewModal.style.display = "flex";
 }
 
-// NOVA FUNÇÃO: Gerar PDF com logomarca da escola
 async function generatePDF() {
   try {
     if (typeof window.jspdf !== "undefined") {
@@ -1730,11 +1707,9 @@ async function generatePDF() {
       const schoolName = schoolConfig.name || "";
       const showLogoInPDF = schoolConfig.showInPDF !== false;
 
-      // NOVO: Adicionar logomarca se configurado
       let logoAdded = false;
       if (showLogoInPDF && schoolConfig.logo) {
         try {
-          // Tentar carregar a imagem para o PDF
           const img = new Image();
           img.crossOrigin = "anonymous";
 
@@ -1744,7 +1719,6 @@ async function generatePDF() {
             img.src = schoolConfig.logo;
           });
 
-          // Adicionar logomarca ao PDF (canto superior esquerdo)
           const canvas = document.createElement("canvas");
           const ctx = canvas.getContext("2d");
           canvas.width = img.width;
@@ -1753,13 +1727,11 @@ async function generatePDF() {
 
           const imgData = canvas.toDataURL("image/png");
 
-          // Calcular dimensões para caber no PDF
-          const maxWidth = 40; // mm
-          const maxHeight = 20; // mm
+          const maxWidth = 40;
+          const maxHeight = 20;
           let width = img.width;
           let height = img.height;
 
-          // Redimensionar proporcionalmente
           if (width > maxWidth) {
             height = (height * maxWidth) / width;
             width = maxWidth;
@@ -1778,7 +1750,6 @@ async function generatePDF() {
 
       doc.setFontSize(20);
 
-      // Ajustar posição do título baseado na logo
       const titleX = logoAdded ? 70 : 105;
       const titleAlign = logoAdded ? "left" : "center";
 
@@ -1786,7 +1757,6 @@ async function generatePDF() {
         align: titleAlign,
       });
 
-      // Adicionar nome da escola se configurado
       if (schoolName && schoolName !== "Nome da Escola") {
         doc.setFontSize(14);
         doc.text(schoolName, titleX, 30, { align: titleAlign });
@@ -1803,7 +1773,6 @@ async function generatePDF() {
         align: "center",
       });
 
-      // Ajustar posição Y baseado na logo
       let yPos = logoAdded ? 60 : 35;
 
       doc.setFontSize(12);
@@ -1909,7 +1878,6 @@ async function generatePDF() {
           doc.addPage();
           yPos = 20;
 
-          // Adicionar logo também nas páginas subsequentes se configurado
           if (logoAdded && schoolName) {
             doc.setFontSize(12);
             doc.text(schoolName, 20, 15);
@@ -1938,7 +1906,6 @@ async function generatePDF() {
         yPos += 3;
       }
 
-      // NOVO: Adicionar rodapé com nome da escola
       const pageCount = doc.internal.getNumberOfPages();
       for (let i = 1; i <= pageCount; i++) {
         doc.setPage(i);
@@ -2183,452 +2150,22 @@ function initCalendar() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  // apenas caso alguém chame sem passar pelo index/editor
+// ============================================
+// INICIALIZAÇÃO PRINCIPAL
+// ============================================
+document.addEventListener("DOMContentLoaded", async function() {
+    console.log("Inicializando calendário...");
+    
+    if (window.FIREBASE_CONFIG && Object.keys(window.FIREBASE_CONFIG).length) {
+        initFirebase();
+    }
+    
+    if (typeof loadSchoolLogo === 'function') {
+        loadSchoolLogo();
+    }
+    
+    editMode = false;
+    await initCalendar();
+    
+    console.log("Calendário inicializado com sucesso!");
 });
-/* ============================================
-   FUNÇÃO DE IMPRESSÃO MELHORADA - CADA MÊS EM UMA PÁGINA
-============================================ 
-
-function printAllMonths() {
-  // Criar uma janela de impressão separada
-  const printWindow = window.open('', '_blank', 'width=1200,height=800');
-  
-  if (!printWindow) {
-    alert('Por favor, permita pop-ups para imprimir o calendário.');
-    return;
-  }
-  
-  const schoolConfig = window.SCHOOL_CONFIG || {};
-  const schoolName = schoolConfig.name || '';
-  const currentDate = new Date();
-  const dateStr = currentDate.toLocaleDateString('pt-BR');
-  
-  // Construir o HTML para impressão
-  let printHTML = `<!DOCTYPE html>
-  <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8">
-    <title>Calendário Letivo - ${schoolName || 'Escola'}</title>
-    <style>
-      /* Reset para impressão 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background: white;
-        padding: 20px;
-      }
-      
-      /* Container principal 
-      .print-container {
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-      
-      /* Cada mês em uma página 
-      .print-month-page {
-        page-break-after: always;
-        page-break-inside: avoid;
-        margin-bottom: 20px;
-        position: relative;
-        min-height: 100vh;
-      }
-      
-      .print-month-page:last-child {
-        page-break-after: auto;
-      }
-      
-      /* Cabeçalho com informações da escola 
-      .print-global-header {
-        text-align: center;
-        margin-bottom: 30px;
-        padding-bottom: 15px;
-        border-bottom: 2px solid #333;
-      }
-      
-      .print-global-header h1 {
-        font-size: 20pt;
-        margin-bottom: 8px;
-      }
-      
-      .print-global-header .school-name {
-        font-size: 14pt;
-        font-weight: bold;
-        color: #555;
-      }
-      
-      .print-global-header .print-date {
-        font-size: 9pt;
-        color: #999;
-        margin-top: 8px;
-      }
-      
-      /* Cabeçalho do mês 
-      .print-month-header {
-        text-align: center;
-        margin: 20px 0 20px 0;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #666;
-      }
-      
-      .print-month-header h2 {
-        font-size: 22pt;
-        margin-bottom: 5px;
-        color: #1a1a1a;
-      }
-      
-      /* Tabela do calendário 
-      .calendar-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 15px;
-      }
-      
-      .calendar-table th,
-      .calendar-table td {
-        border: 1px solid #ddd;
-        padding: 8px 6px;
-        vertical-align: top;
-      }
-      
-      .calendar-table th {
-        background: #f5f5f5;
-        font-weight: bold;
-        text-align: center;
-        font-size: 11pt;
-      }
-      
-      .calendar-table td {
-        height: 85px;
-        width: 14.28%;
-      }
-      
-      .day-number {
-        font-weight: bold;
-        font-size: 11pt;
-        margin-bottom: 6px;
-        padding-bottom: 3px;
-        border-bottom: 1px solid #eee;
-      }
-      
-      .event-title {
-        font-size: 8.5pt;
-        font-weight: 600;
-        margin: 3px 0;
-        line-height: 1.2;
-      }
-      
-      .event-desc {
-        font-size: 7.5pt;
-        color: #555;
-        margin: 2px 0;
-        line-height: 1.2;
-      }
-      
-      .letivo-info {
-        font-size: 7pt;
-        font-style: italic;
-        color: #2c6e2c;
-        margin-top: 3px;
-      }
-      
-      .weekend-day {
-        background-color: #f9f9f9;
-      }
-      
-      /* Cores suaves para impressão 
-      .bg-comum { background-color: #e8f5e8; }
-      .bg-evento { background-color: #e3f0ff; }
-      .bg-avaliacao { background-color: #ecefff; }
-      .bg-sabado_letivo { background-color: #eaf5e0; }
-      .bg-feriado { background-color: #f5e6f7; }
-      .bg-recesso { background-color: #fff3e0; }
-      .bg-recesso_professores { background-color: #ffede5; }
-      .bg-ferias { background-color: #ffe8e6; }
-      .bg-paralisacao { background-color: #f0ecea; }
-      .bg-recuperacao { background-color: #fff8e0; }
-      .bg-personalizado { background-color: #f5f5f5; }
-      
-      /* Detalhes do mês 
-      .month-details {
-        margin-top: 20px;
-        padding: 12px;
-        background: #fafafa;
-        border-radius: 8px;
-      }
-      
-      .month-description {
-        margin-bottom: 10px;
-        font-size: 10pt;
-      }
-      
-      .month-notes {
-        margin-bottom: 10px;
-        font-size: 10pt;
-      }
-      
-      .month-target {
-        font-size: 10pt;
-        font-weight: bold;
-        color: #2c6e2c;
-      }
-      
-      /* Legenda 
-      .print-legend {
-        margin-top: 20px;
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        background: #fff;
-      }
-      
-      .print-legend h4 {
-        margin: 0 0 10px 0;
-        font-size: 11pt;
-      }
-      
-      .legend-items {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-      
-      .legend-item {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 8.5pt;
-      }
-      
-      .legend-color {
-        width: 14px;
-        height: 14px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-      }
-      
-      /* Rodapé 
-      .print-footer {
-        text-align: center;
-        font-size: 8pt;
-        color: #999;
-        margin-top: 25px;
-        padding-top: 10px;
-        border-top: 1px solid #eee;
-      }
-      
-      /* Forçar quebra de página 
-      @media print {
-        body {
-          padding: 0;
-          margin: 0;
-        }
-        .print-month-page {
-          page-break-after: always;
-        }
-        .print-no-break {
-          page-break-inside: avoid;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="print-container">`;
-  
-  // Cabeçalho global
-  printHTML += `
-      <div class="print-global-header">
-        <h1>Calendário Letivo ${calendarData.year || '2026'}</h1>
-        ${schoolName ? `<div class="school-name">${schoolName}</div>` : ''}
-        <div class="print-date">Gerado em: ${dateStr}</div>
-      </div>`;
-  
-  // Para cada mês, criar uma página
-  for (let monthIndex = 0; monthIndex < calendarData.months.length; monthIndex++) {
-    const month = calendarData.months[monthIndex];
-    const { month: actualMonth, year: actualYear } = getActualMonthAndYear(monthIndex);
-    
-    // Obter o primeiro dia do mês
-    const firstDayOfMonth = new Date(Date.UTC(actualYear, actualMonth - 1, 1)).getUTCDay();
-    
-    // Calcular total de dias letivos do mês
-    const monthLetivoTotal = calculateMonthDays2026(monthIndex);
-    
-    printHTML += `
-      <div class="print-month-page">
-        <div class="print-month-header">
-          <h2>${month.name}</h2>
-          <div style="font-size: 10pt; color: #666;">Total de dias letivos: ${monthLetivoTotal}</div>
-        </div>
-        
-        <table class="calendar-table">
-          <thead>
-            <tr>
-              <th>Domingo</th>
-              <th>Segunda</th>
-              <th>Terça</th>
-              <th>Quarta</th>
-              <th>Quinta</th>
-              <th>Sexta</th>
-              <th>Sábado</th>
-            </tr>
-          </thead>
-          <tbody>`;
-    
-    let dayCounter = 1;
-    let weekCounter = 0;
-    const daysInMonth = month.days;
-    
-    // Preencher as semanas
-    while (dayCounter <= daysInMonth) {
-      printHTML += '<tr>';
-      
-      for (let dow = 0; dow < 7; dow++) {
-        if (weekCounter === 0 && dow < firstDayOfMonth) {
-          // Célula vazia antes do início do mês
-          printHTML += '<td class="weekend-day"></td>';
-        } else if (dayCounter <= daysInMonth) {
-          const info = month.daysData[dayCounter] || null;
-          const dayOfWeek = dow;
-          const isWeekend = (dow === 0 || dow === 6);
-          
-          // Determinar classe de cor
-          let bgClass = '';
-          if (info && info.type) {
-            bgClass = `bg-${info.type}`;
-          } else if (isWeekend) {
-            bgClass = 'weekend-day';
-          }
-          
-          printHTML += `<td class="${bgClass}">`;
-          printHTML += `<div class="day-number">${dayCounter}</div>`;
-          
-          if (info) {
-            const typeName = TYPE_NAMES[info.type] || info.type || 'Personalizado';
-            printHTML += `<div class="event-title"><strong>${typeName}</strong></div>`;
-            
-            if (info.title && info.title.trim()) {
-              printHTML += `<div class="event-title">${escapeHtml(info.title)}</div>`;
-            }
-            
-            if (info.description && info.description.trim()) {
-              printHTML += `<div class="event-desc">${escapeHtml(info.description)}</div>`;
-            }
-            
-            if (info.letivo !== undefined) {
-              if (info.letivo) {
-                printHTML += `<div class="letivo-info">✓ Conta como dia letivo</div>`;
-              } else {
-                printHTML += `<div class="letivo-info" style="color:#c62828;">✗ Não conta como dia letivo</div>`;
-              }
-            } else if (LETIVO_TYPES.includes(info.type)) {
-              printHTML += `<div class="letivo-info">✓ Conta como dia letivo</div>`;
-            } else {
-              printHTML += `<div class="letivo-info" style="color:#c62828;">✗ Não conta como dia letivo</div>`;
-            }
-          }
-          
-          printHTML += '</td>';
-          dayCounter++;
-        } else {
-          printHTML += '<td class="weekend-day"></td>';
-        }
-      }
-      
-      printHTML += '</tr>';
-      weekCounter++;
-    }
-    
-    printHTML += `
-          </tbody>
-        </table>`;
-    
-    // Detalhes do mês
-    if (month.description || month.notes || month.target) {
-      printHTML += `
-        <div class="month-details">`;
-      
-      if (month.description) {
-        printHTML += `
-          <div class="month-description">
-            <strong>Descrição:</strong> ${escapeHtml(month.description)}
-          </div>`;
-      }
-      
-      if (month.notes) {
-        printHTML += `
-          <div class="month-notes">
-            <strong>Observações:</strong> ${escapeHtml(month.notes)}
-          </div>`;
-      }
-      
-      if (month.target) {
-        printHTML += `
-          <div class="month-target">
-            Meta de dias letivos: ${month.target}
-          </div>`;
-      }
-      
-      printHTML += `
-        </div>`;
-    }
-    
-    // Legenda na primeira página apenas
-    if (monthIndex === 0) {
-      printHTML += `
-        <div class="print-legend">
-          <h4>Legenda das Cores</h4>
-          <div class="legend-items">
-            <div class="legend-item"><div class="legend-color" style="background:#e8f5e8;"></div><span>Dia Letivo</span></div>
-            <div class="legend-item"><div class="legend-color" style="background:#e3f0ff;"></div><span>Evento Escolar</span></div>
-            <div class="legend-item"><div class="legend-color" style="background:#ecefff;"></div><span>Avaliação</span></div>
-            <div class="legend-item"><div class="legend-color" style="background:#eaf5e0;"></div><span>Sábado Letivo</span></div>
-            <div class="legend-item"><div class="legend-color" style="background:#f5e6f7;"></div><span>Feriado</span></div>
-            <div class="legend-item"><div class="legend-color" style="background:#fff3e0;"></div><span>Recesso</span></div>
-            <div class="legend-item"><div class="legend-color" style="background:#ffede5;"></div><span>Recesso Professores</span></div>
-            <div class="legend-item"><div class="legend-color" style="background:#ffe8e6;"></div><span>Férias</span></div>
-            <div class="legend-item"><div class="legend-color" style="background:#f0ecea;"></div><span>Paralisação</span></div>
-            <div class="legend-item"><div class="legend-color" style="background:#fff8e0;"></div><span>Recuperação Final</span></div>
-          </div>
-          <div style="margin-top:8px; font-size:8pt; color:#666;">
-            ✓ Conta como dia letivo | ✗ Não conta como dia letivo
-          </div>
-        </div>`;
-    }
-    
-    printHTML += `
-        <div class="print-footer">
-          ${schoolName ? `${schoolName} • ` : ''}Calendário Letivo ${calendarData.year || '2026'} • Página ${monthIndex + 1} de ${calendarData.months.length}
-        </div>
-      </div>`;
-  }
-  
-  printHTML += `
-    </div>
-  </body>
-  </html>`;
-  
-  // Escrever na janela de impressão
-  printWindow.document.write(printHTML);
-  printWindow.document.close();
-  
-  // Aguardar o carregamento e chamar a impressão
-  printWindow.onload = function() {
-    printWindow.print();
-    // Opcional: fechar após impressão (descomente se quiser)
-    // printWindow.onafterprint = function() { printWindow.close(); };
-  };
-}
-
-// Função auxiliar para escapar HTML
-function escapeHtml(text) {
-  if (!text) return '';
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}
