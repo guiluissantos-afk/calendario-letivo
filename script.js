@@ -2188,7 +2188,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 /* ============================================
    FUNÇÃO DE IMPRESSÃO MELHORADA - CADA MÊS EM UMA PÁGINA
-============================================ */
+============================================ 
 
 function printAllMonths() {
   // Criar uma janela de impressão separada
@@ -2211,7 +2211,7 @@ function printAllMonths() {
     <meta charset="UTF-8">
     <title>Calendário Letivo - ${schoolName || 'Escola'}</title>
     <style>
-      /* Reset para impressão */
+      /* Reset para impressão 
       * {
         margin: 0;
         padding: 0;
@@ -2224,13 +2224,13 @@ function printAllMonths() {
         padding: 20px;
       }
       
-      /* Container principal */
+      /* Container principal 
       .print-container {
         max-width: 1200px;
         margin: 0 auto;
       }
       
-      /* Cada mês em uma página */
+      /* Cada mês em uma página 
       .print-month-page {
         page-break-after: always;
         page-break-inside: avoid;
@@ -2243,7 +2243,7 @@ function printAllMonths() {
         page-break-after: auto;
       }
       
-      /* Cabeçalho com informações da escola */
+      /* Cabeçalho com informações da escola 
       .print-global-header {
         text-align: center;
         margin-bottom: 30px;
@@ -2268,7 +2268,7 @@ function printAllMonths() {
         margin-top: 8px;
       }
       
-      /* Cabeçalho do mês */
+      /* Cabeçalho do mês 
       .print-month-header {
         text-align: center;
         margin: 20px 0 20px 0;
@@ -2282,7 +2282,7 @@ function printAllMonths() {
         color: #1a1a1a;
       }
       
-      /* Tabela do calendário */
+      /* Tabela do calendário 
       .calendar-table {
         width: 100%;
         border-collapse: collapse;
@@ -2341,7 +2341,7 @@ function printAllMonths() {
         background-color: #f9f9f9;
       }
       
-      /* Cores suaves para impressão */
+      /* Cores suaves para impressão 
       .bg-comum { background-color: #e8f5e8; }
       .bg-evento { background-color: #e3f0ff; }
       .bg-avaliacao { background-color: #ecefff; }
@@ -2354,7 +2354,7 @@ function printAllMonths() {
       .bg-recuperacao { background-color: #fff8e0; }
       .bg-personalizado { background-color: #f5f5f5; }
       
-      /* Detalhes do mês */
+      /* Detalhes do mês 
       .month-details {
         margin-top: 20px;
         padding: 12px;
@@ -2378,7 +2378,7 @@ function printAllMonths() {
         color: #2c6e2c;
       }
       
-      /* Legenda */
+      /* Legenda 
       .print-legend {
         margin-top: 20px;
         padding: 12px;
@@ -2412,7 +2412,7 @@ function printAllMonths() {
         border-radius: 3px;
       }
       
-      /* Rodapé */
+      /* Rodapé 
       .print-footer {
         text-align: center;
         font-size: 8pt;
@@ -2422,7 +2422,7 @@ function printAllMonths() {
         border-top: 1px solid #eee;
       }
       
-      /* Forçar quebra de página */
+      /* Forçar quebra de página 
       @media print {
         body {
           padding: 0;
